@@ -1,0 +1,56 @@
+:root {
+  /* Marka */
+  --color-brand: #0f766e;
+  --color-brand-strong: #115e59;
+  --color-brand-soft: #f0fdfa;
+  --color-brand-border: #99d5cf;
+
+  /* Nötr */
+  --color-bg: #f4f7f8;
+  --color-surface: #ffffff;
+  --color-text: #0f172a;
+  --color-muted: #475569;
+  --color-border: #d5dde3;
+  --color-border-strong: #64748b;
+
+  /* Durum (beyaz üstünde AA) */
+  --color-profit: #0f766e;
+  --color-profit-soft: #ecfdf5;
+  --color-loss: #b91c1c;
+  --color-loss-soft: #fef2f2;
+  --color-even: #475569;
+  --color-even-soft: #f1f5f9;
+  --color-warn-soft: #fffbeb;
+  --color-warn-border: #f59e0b;
+  --color-warn-text: #78350f;
+
+  --color-focus: #0f766e;
+
+  /* Tipografi */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 1.875rem;
+
+  /* Boşluk */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+
+  /* Şekil */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+  --tap-size: 44px;
+  --header-height: 64px;
+  --bar-height: 64px;
+  --content-max: 1120px;
+}

@@ -15,14 +15,18 @@ HTML5, CSS3, Vanilla JavaScript, JSON localization. Framework veya bağımlılı
 ## Kodlama standartları
 - ES modülleri, `const`/`let`, `"use strict"` gerektiğinde; küçük ve tek amaçlı fonksiyonlar.
 - CSS: değişkenler (custom properties), mobile-first, BEM benzeri sınıf adları.
-- Kullanıcıya görünen tüm metinler JSON çeviri dosyalarından gelir; koda gömülmez.
+- Kullanıcıya görünen tüm metinler JSON çeviri dosyalarından gelir; koda gömülmez. İstisnalar (yalnızca `src/index.html`, sabit TR+EN): `file://` uyarısı ve "iki dil dosyası da yüklenemedi" hata kutusu.
+- Uygulama ES modülleri ve `fetch` kullandığından `npm start` (`scripts/dev-server.js`: Node.js, bağımlılıksız, `src` kökü, yalnızca localhost:8000) ile çalıştırılır; `file://` desteklenmez.
+- `localStorage` yalnızca dil tercihi için kullanılır; mali veriler asla saklanmaz.
+- Sayı girişi UI'da ayrıştırılır (`parse-number.js`); motor metni dönüştürmez. Belirsiz ayraçlı girdi hata verir.
 - Dosya/klasör adları küçük harf; `calculateProfit.js` bilinçli bir istisnadır (camelCase). Yeni dosyalarda kebab-case. Mevcut stile uy.
 
 ## Dosya yapısı (hedef)
 ```
 StayProfit/
 ├─ .claude/agents/      # uzman agent tanımları
-├─ package.json         # type: module, npm test (node:test)
+├─ package.json         # type: module, npm test (node:test), npm start (scripts/dev-server.js)
+├─ scripts/             # dev-server.js (yerel geliştirme sunucusu)
 ├─ src/
 │  ├─ index.html
 │  ├─ calculator/       # hesaplama motoru (UI'dan bağımsız): calculateProfit.js, validation.js

@@ -1,6 +1,7 @@
 {
   "type": "module",
   "scripts": {
+    "start": "node scripts/dev-server.js",
     "test": "node --test"
   }
 }

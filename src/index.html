@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StayProfit</title>
+  <!-- Not: meta/hreflang/canonical/JSON-LD içeriği seo-localization agent'ın işidir. Aşağıdaki description, JS ile meta.description'dan doldurulur. -->
+  <!-- Canonical ve hreflang: domain belirlenince eklenecek. -->
+  <meta name="description" content="StayProfit: rental profit calculator for holiday rentals." data-i18n-attr="content:meta.description">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/calculator.css">
+</head>
+<body>
+  <!--
+    JSON-DIŞI İKİ İSTİSNA: (1) file:// uyarısı ve (2) çeviri yükleme hatası kutusu (#load-error).
+    İkisi de JSON çevirisi yüklenemediği durumlarda göründüğü için sabit TR+EN yazılmıştır.
+    Diğer tüm görünür metinler data-i18n / t() ile JSON'dan gelir.
+  -->
+  <div class="file-warning" id="load-error" role="alert" hidden>
+    <p><strong>TR:</strong> Çeviri dosyaları yüklenemedi. Uygulamayı sunucuyla çalıştırın: <code>npm start</code>, sonra <code>http://localhost:8000</code> adresini açın.</p>
+    <p><strong>EN:</strong> Translation files could not be loaded. Run the app with a server: <code>npm start</code>, then open <code>http://localhost:8000</code>.</p>
+  </div>
+  <div class="file-warning" id="file-warning" role="alert" hidden>
+    <p><strong>TR:</strong> Bu sayfa dosya olarak (file://) açıldı; çeviriler ve modüller yüklenemez. Sunucuyla çalıştırın: <code>npm start</code>, sonra <code>http://localhost:8000</code> adresini açın.</p>
+    <p><strong>EN:</strong> This page was opened as a file (file://); translations and modules cannot load. Run it with a server: <code>npm start</code>, then open <code>http://localhost:8000</code>.</p>
+  </div>
+  <noscript>
+    <div class="file-warning" role="alert">
+      <p><strong>TR:</strong> Bu uygulama JavaScript gerektirir. Sunucuyla çalıştırın: <code>npm start</code>, sonra <code>http://localhost:8000</code> adresini açın.</p>
+      <p><strong>EN:</strong> This app requires JavaScript. Run it with a server: <code>npm start</code>, then open <code>http://localhost:8000</code>.</p>
+    </div>
+  </noscript>
+  <script>
+    // Modül olmayan klasik script: file:// durumunda uyarıyı gösterir (modüller file:// üzerinde çalışmaz).
+    if (location.protocol === "file:") document.getElementById("file-warning").hidden = false;
+  </script>
+
+  <a class="skip-link" href="#main" data-i18n="app.skipToContent"></a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <p class="brand"><span class="brand__mark" aria-hidden="true"></span><span class="brand__name" data-i18n="app.name"></span></p>
+      <div class="lang-switch" data-app-content role="group" aria-labelledby="lang-label">
+        <span class="visually-hidden" id="lang-label" data-i18n="nav.language"></span>
+        <button type="button" class="lang-switch__btn" data-lang="tr" aria-pressed="false" data-i18n="lang.tr"></button>
+        <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="false" data-i18n="lang.en"></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="notice" id="load-banner" role="status" hidden>
+    <p id="load-banner-title"></p>
+    <p id="load-banner-hint"></p>
+  </div>
+
+  <section class="hero" data-app-content aria-labelledby="page-title">
+    <div class="hero__inner">
+      <p class="hero__slogan" data-i18n="app.slogan"></p>
+      <h1 class="hero__title" id="page-title" data-i18n="calc.title"></h1>
+      <p class="hero__subtitle" data-i18n="calc.subtitle"></p>
+    </div>
+  </section>
+
+  <main id="main" class="layout" data-app-content>
+    <div class="layout__form">
+      <p class="notice" id="sample-notice" data-i18n="calc.sampleNotice"></p>
+
+      <form id="calc-form" class="card" novalidate autocomplete="off">
+        <div class="toolbar">
+          <div class="toolbar__currency">
+            <label class="field__label" for="currency" data-i18n="currency.label"></label>
+            <select class="field__input field__select" id="currency" name="currency"></select>
+          </div>
+          <button type="button" class="btn btn--secondary" id="reset-button" aria-describedby="reset-hint" data-i18n="calc.reset" data-i18n-attr="title:calc.resetHint"></button>
+          <span class="visually-hidden" id="reset-hint" data-i18n="calc.resetHint"></span>
+        </div>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset__legend" data-i18n="section.basic"></legend>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="nightlyPrice" data-i18n="field.nightlyPrice.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="nightlyPrice" name="nightlyPrice" type="text" inputmode="decimal" aria-describedby="nightlyPrice-hint" data-i18n-attr="placeholder:field.nightlyPrice.placeholder">
+                <span class="field__unit" data-unit="currency"></span>
+              </div>
+              <p class="field__hint" id="nightlyPrice-hint" data-i18n="field.nightlyPrice.hint"></p>
+              <p class="field__error" id="nightlyPrice-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="availableNights" data-i18n="field.availableNights.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="availableNights" name="availableNights" type="text" inputmode="decimal" aria-describedby="availableNights-hint" data-i18n-attr="placeholder:field.availableNights.placeholder">
+              </div>
+              <p class="field__hint" id="availableNights-hint" data-i18n="field.availableNights.hint"></p>
+              <p class="field__error" id="availableNights-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="occupancyRate" data-i18n="field.occupancyRate.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="occupancyRate" name="occupancyRate" type="text" inputmode="decimal" aria-describedby="occupancyRate-hint" data-i18n-attr="placeholder:field.occupancyRate.placeholder">
+                <span class="field__unit">%</span>
+              </div>
+              <p class="field__hint" id="occupancyRate-hint" data-i18n="field.occupancyRate.hint"></p>
+              <p class="field__error" id="occupancyRate-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="platformFeeRate" data-i18n="field.platformFeeRate.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="platformFeeRate" name="platformFeeRate" type="text" inputmode="decimal" aria-describedby="platformFeeRate-hint" data-i18n-attr="placeholder:field.platformFeeRate.placeholder">
+                <span class="field__unit">%</span>
+              </div>
+              <p class="field__hint" id="platformFeeRate-hint"><span data-i18n="field.platformFeeRate.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+              <p class="field__error" id="platformFeeRate-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="cleaningCostPerBooking" data-i18n="field.cleaningCostPerBooking.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="cleaningCostPerBooking" name="cleaningCostPerBooking" type="text" inputmode="decimal" aria-describedby="cleaningCostPerBooking-hint" data-i18n-attr="placeholder:field.cleaningCostPerBooking.placeholder">
+                <span class="field__unit" data-unit="currency"></span>
+              </div>
+              <p class="field__hint" id="cleaningCostPerBooking-hint"><span data-i18n="field.cleaningCostPerBooking.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+              <p class="field__error" id="cleaningCostPerBooking-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="bookingsPerMonth" data-i18n="field.bookingsPerMonth.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="bookingsPerMonth" name="bookingsPerMonth" type="text" inputmode="decimal" aria-describedby="bookingsPerMonth-hint" data-i18n-attr="placeholder:field.bookingsPerMonth.placeholder">
+              </div>
+              <p class="field__hint" id="bookingsPerMonth-hint"><span data-i18n="field.bookingsPerMonth.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+              <p class="field__error" id="bookingsPerMonth-error" hidden></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset__legend" data-i18n="section.expensesBasic"></legend>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="maintenance" data-i18n="field.maintenance.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="maintenance" name="maintenance" type="text" inputmode="decimal" aria-describedby="maintenance-hint" data-i18n-attr="placeholder:field.maintenance.placeholder">
+                <span class="field__unit" data-unit="currency"></span>
+              </div>
+              <p class="field__hint" id="maintenance-hint"><span data-i18n="field.maintenance.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+              <p class="field__error" id="maintenance-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="electricity" data-i18n="field.electricity.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="electricity" name="electricity" type="text" inputmode="decimal" aria-describedby="electricity-hint" data-i18n-attr="placeholder:field.electricity.placeholder">
+                <span class="field__unit" data-unit="currency"></span>
+              </div>
+              <p class="field__hint" id="electricity-hint"><span data-i18n="field.electricity.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+              <p class="field__error" id="electricity-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="water" data-i18n="field.water.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="water" name="water" type="text" inputmode="decimal" aria-describedby="water-hint" data-i18n-attr="placeholder:field.water.placeholder">
+                <span class="field__unit" data-unit="currency"></span>
+              </div>
+              <p class="field__hint" id="water-hint"><span data-i18n="field.water.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+              <p class="field__error" id="water-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="internet" data-i18n="field.internet.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="internet" name="internet" type="text" inputmode="decimal" aria-describedby="internet-hint" data-i18n-attr="placeholder:field.internet.placeholder">
+                <span class="field__unit" data-unit="currency"></span>
+              </div>
+              <p class="field__hint" id="internet-hint"><span data-i18n="field.internet.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+              <p class="field__error" id="internet-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="insurance" data-i18n="field.insurance.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="insurance" name="insurance" type="text" inputmode="decimal" aria-describedby="insurance-hint" data-i18n-attr="placeholder:field.insurance.placeholder">
+                <span class="field__unit" data-unit="currency"></span>
+              </div>
+              <p class="field__hint" id="insurance-hint"><span data-i18n="field.insurance.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+              <p class="field__error" id="insurance-error" hidden></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <details class="disclosure" id="advanced-details">
+          <summary class="disclosure__summary">
+            <span data-i18n="section.advanced"></span>
+            <span class="badge badge--danger" id="advanced-badge" data-i18n="section.advancedErrorBadge" hidden></span>
+          </summary>
+          <div class="disclosure__body">
+            <p class="disclosure__hint" data-i18n="section.advancedHint"></p>
+            <div class="form-grid">
+              <div class="field">
+                <label class="field__label" for="propertyManagement" data-i18n="field.propertyManagement.label"></label>
+                <div class="field__control">
+                  <input class="field__input" id="propertyManagement" name="propertyManagement" type="text" inputmode="decimal" aria-describedby="propertyManagement-hint" data-i18n-attr="placeholder:field.propertyManagement.placeholder">
+                  <span class="field__unit" data-unit="currency"></span>
+                </div>
+                <p class="field__hint" id="propertyManagement-hint"><span data-i18n="field.propertyManagement.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+                <p class="field__error" id="propertyManagement-error" hidden></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="otherExpenses" data-i18n="field.otherExpenses.label"></label>
+                <div class="field__control">
+                  <input class="field__input" id="otherExpenses" name="otherExpenses" type="text" inputmode="decimal" aria-describedby="otherExpenses-hint" data-i18n-attr="placeholder:field.otherExpenses.placeholder">
+                  <span class="field__unit" data-unit="currency"></span>
+                </div>
+                <p class="field__hint" id="otherExpenses-hint"><span data-i18n="field.otherExpenses.hint"></span> <span class="field__optional" data-i18n="calc.optionalHint"></span></p>
+                <p class="field__error" id="otherExpenses-error" hidden></p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </form>
+    </div>
+
+    <aside class="layout__results" aria-labelledby="results-title">
+      <section class="card results" data-state-host data-state="none">
+        <h2 class="results__title" id="results-title" data-i18n="result.title"></h2>
+
+        <div class="summary" role="group" data-i18n-attr="aria-label:result.summaryAria">
+          <div aria-live="polite" aria-atomic="true">
+            <p class="summary__label" data-i18n="result.monthlyNet"></p>
+            <p class="summary__value" data-result="monthlyNetOperatingIncome">—</p>
+            <p class="badge badge--status" id="result-badge" hidden>
+              <span class="badge__icon" id="result-badge-icon" aria-hidden="true"></span>
+              <span id="result-badge-text"></span>
+            </p>
+            <p class="summary__explain" id="result-explain" hidden></p>
+          </div>
+        </div>
+
+        <p class="results__status" id="result-status" role="status"></p>
+
+        <dl class="metrics">
+          <div class="metrics__row">
+            <dt data-i18n="result.grossRevenue"></dt>
+            <dd data-result="grossRevenue">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt data-i18n="result.platformFee"></dt>
+            <dd data-result="platformFee">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt data-i18n="result.totalExpenses"></dt>
+            <dd data-result="totalExpenses">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt data-i18n="result.annualNet"></dt>
+            <dd data-result="annualEstimatedNetOperatingIncome">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt data-i18n="result.profitMargin"></dt>
+            <dd data-result="profitMargin">—</dd>
+          </div>
+        </dl>
+
+        <ul class="notes">
+          <li data-i18n="note.taxes"></li>
+          <li data-i18n="note.annualAssumption"></li>
+          <li data-i18n="note.noConversion"></li>
+          <li data-i18n="note.storage"></li>
+        </ul>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="site-footer" data-app-content>
+    <p data-i18n="footer.disclaimer"></p>
+  </footer>
+
+  <!-- Sticky alt çubuk (mobil). Görsel kopya; ekran okuyucu için canlı bölge sonuç panelindedir. -->
+  <div class="sticky-bar" data-app-content aria-hidden="true" data-state-host data-state="none">
+    <span class="sticky-bar__label" data-i18n="result.monthlyNet"></span>
+    <span class="sticky-bar__value" data-result="monthlyNetOperatingIncome">—</span>
+  </div>
+
+  <script type="module" src="js/ui/main.js"></script>
+</body>
+</html>

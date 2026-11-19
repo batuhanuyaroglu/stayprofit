@@ -1,0 +1,119 @@
+{
+  "meta.title": "StayProfit | Rental Profit Calculator",
+  "meta.description": "Calculate your real net operating income after platform fees and monthly expenses. Know Your Real Rental Profit. Fast and simple.",
+
+  "app.name": "StayProfit",
+  "app.slogan": "Know Your Real Rental Profit.",
+  "app.skipToContent": "Skip to content",
+
+  "nav.language": "Language",
+  "lang.tr": "Türkçe",
+  "lang.en": "English",
+
+  "calc.title": "Rental Profit Calculator",
+  "calc.subtitle": "Enter your rental assumptions and see your monthly and annual net operating income instantly.",
+  "calc.reset": "Restore Sample Values",
+  "calc.resetHint": "Restores the initial sample values.",
+  "calc.sampleNotice": "The values shown when the page opens are SAMPLE data. Enter your own figures to calculate.",
+  "calc.optionalHint": "Left blank, it is treated as 0",
+
+  "currency.label": "Currency",
+  "currency.TRY": "TRY — Turkish Lira",
+  "currency.USD": "USD — US Dollar",
+  "currency.EUR": "EUR — Euro",
+  "currency.GBP": "GBP — British Pound",
+
+  "section.basic": "Core inputs",
+  "section.expensesBasic": "Core monthly expenses",
+  "section.advanced": "Advanced expenses",
+  "section.advancedHint": "Optional. Enter additional monthly costs specific to your property.",
+  "section.advancedErrorBadge": "Has errors",
+
+  "field.nightlyPrice.label": "Nightly price",
+  "field.nightlyPrice.hint": "Average gross price for one night (in the selected currency).",
+  "field.nightlyPrice.placeholder": "e.g. 2500",
+
+  "field.availableNights.label": "Available nights per month",
+  "field.availableNights.hint": "Whole number between 1 and 31.",
+  "field.availableNights.placeholder": "e.g. 30",
+
+  "field.occupancyRate.label": "Occupancy rate",
+  "field.occupancyRate.hint": "Percentage of available nights that are booked (0 to 100).",
+  "field.occupancyRate.placeholder": "e.g. 75",
+
+  "field.platformFeeRate.label": "Platform fee rate",
+  "field.platformFeeRate.hint": "Percentage deducted from gross booking revenue (0 to 100).",
+  "field.platformFeeRate.placeholder": "e.g. 15",
+
+  "field.cleaningCostPerBooking.label": "Cleaning cost per booking",
+  "field.cleaningCostPerBooking.hint": "Cleaning amount paid for each booking (in the selected currency).",
+  "field.cleaningCostPerBooking.placeholder": "e.g. 500",
+
+  "field.bookingsPerMonth.label": "Bookings per month",
+  "field.bookingsPerMonth.hint": "Whole number, 0 or more. Cannot exceed the number of booked nights.",
+  "field.bookingsPerMonth.placeholder": "e.g. 4",
+
+  "field.maintenance.label": "Maintenance and repairs",
+  "field.maintenance.hint": "Average monthly amount (in the selected currency).",
+  "field.maintenance.placeholder": "e.g. 300",
+
+  "field.electricity.label": "Electricity",
+  "field.electricity.hint": "Average monthly amount (in the selected currency).",
+  "field.electricity.placeholder": "e.g. 400",
+
+  "field.water.label": "Water",
+  "field.water.hint": "Average monthly amount (in the selected currency).",
+  "field.water.placeholder": "e.g. 150",
+
+  "field.internet.label": "Internet",
+  "field.internet.hint": "Monthly internet subscription (in the selected currency).",
+  "field.internet.placeholder": "e.g. 350",
+
+  "field.insurance.label": "Insurance",
+  "field.insurance.hint": "Monthly insurance premium. You can enter the annual premium divided by 12.",
+  "field.insurance.placeholder": "e.g. 200",
+
+  "field.propertyManagement.label": "Property management fee",
+  "field.propertyManagement.hint": "Monthly fee for a professional property manager (in the selected currency).",
+  "field.propertyManagement.placeholder": "e.g. 1000",
+
+  "field.otherExpenses.label": "Other expenses",
+  "field.otherExpenses.hint": "Total of dues, subscriptions and other monthly costs (in the selected currency).",
+  "field.otherExpenses.placeholder": "e.g. 100",
+
+  "result.title": "Results",
+  "result.grossRevenue": "Gross revenue",
+  "result.platformFee": "Platform fee",
+  "result.totalExpenses": "Total expenses",
+  "result.monthlyNet": "Monthly net operating income",
+  "result.annualNet": "Annual net operating income",
+  "result.profitMargin": "Net operating margin",
+  "result.dash": "—",
+  "result.profit": "In profit",
+  "result.loss": "In loss",
+  "result.breakEven": "Break-even",
+  "result.lossExplain": "Expenses exceed revenue",
+  "result.summaryAria": "Calculation summary",
+
+  "note.taxes": "Taxes are not included.",
+  "note.annualAssumption": "Annual values are calculated as monthly values × 12.",
+  "note.noConversion": "Currency is for display only; no exchange rate conversion is applied.",
+  "note.storage": "Only your language preference is stored; financial data is not stored.",
+
+  "errors.REQUIRED": "This field is required.",
+  "errors.NOT_A_NUMBER": "Please enter a valid number.",
+  "errors.NOT_AN_INTEGER": "This field must be a whole number.",
+  "errors.OUT_OF_RANGE": "The value is outside the allowed range.",
+  "errors.TOO_LARGE": "The value is too large; at most {max} can be entered.",
+  "errors.NEGATIVE_VALUE": "Negative values are not allowed.",
+  "errors.INVALID_CURRENCY": "Invalid currency selected.",
+  "errors.BOOKINGS_EXCEED_BOOKED_NIGHTS": "Bookings cannot exceed the number of booked nights ({max}).",
+  "errors.INVALID_INPUT": "Invalid input.",
+  "errors.RESULT_OUT_OF_RANGE": "The calculated result is outside the expected range.",
+  "errors.AMBIGUOUS_NUMBER": "Thousands and decimal separators are ambiguous (e.g. 1.234 or 1,234). Please write the number in a clear format.",
+  "errors.summary": "Please correct the highlighted fields.",
+  "errors.loadFailed": "The selected language file could not be loaded; showing the fallback language.",
+  "errors.loadFailedHint": "Make sure the app is running through the server: npm start",
+
+  "footer.disclaimer": "Results are estimates only and do not constitute tax, legal or investment advice."
+}

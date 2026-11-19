@@ -1,0 +1,212 @@
+/* Marka */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+}
+
+.brand__mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--color-brand), var(--color-brand-strong));
+}
+
+/* Dil düğmeleri */
+.lang-switch {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.lang-switch__btn {
+  min-height: var(--tap-size);
+  min-width: var(--tap-size);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-muted);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lang-switch__btn[aria-pressed="true"] {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+/* Düğmeler */
+.btn {
+  min-height: var(--tap-size);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn--secondary {
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover {
+  background: var(--color-brand-soft);
+}
+
+/* Kart ve bildirimler */
+.card {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.notice {
+  margin-bottom: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-warn-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-warn-soft);
+  color: var(--color-warn-text);
+  font-size: var(--font-size-sm);
+}
+
+.file-warning {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-warn-soft);
+  border-bottom: 2px solid var(--color-warn-border);
+  color: var(--color-warn-text);
+  font-size: var(--font-size-sm);
+}
+
+code {
+  overflow-wrap: anywhere;
+}
+
+.file-warning p + p {
+  margin-top: var(--space-2);
+}
+
+/* Rozetler */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-3);
+  border-radius: 999px;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.badge--danger {
+  background: var(--color-loss-soft);
+  color: var(--color-loss);
+  border: 1px solid var(--color-loss);
+}
+
+/* Form alanları */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.field__label {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field__input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: 1rem; /* >=16px: iOS yakınlaştırmasını önler */
+}
+
+.field__control .field__input {
+  padding-right: 3.5rem;
+}
+
+.field__select {
+  margin-top: var(--space-1);
+}
+
+.field__input::placeholder {
+  color: #64748b;
+}
+
+.field__input[aria-invalid="true"] {
+  border-color: var(--color-loss);
+  border-width: 2px;
+  background: var(--color-loss-soft);
+}
+
+.field__unit {
+  position: absolute;
+  right: var(--space-4);
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+  pointer-events: none;
+}
+
+.field__hint {
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+}
+
+.field__optional {
+  font-style: italic;
+}
+
+.field__error {
+  color: var(--color-loss);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+/* Açılır bölüm */
+.disclosure {
+  margin-top: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+
+.disclosure__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.disclosure__body {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.disclosure__hint {
+  margin-bottom: var(--space-3);
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+}

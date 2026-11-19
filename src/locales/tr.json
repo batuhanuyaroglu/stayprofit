@@ -1,0 +1,119 @@
+{
+  "meta.title": "StayProfit | Kira Kârlılık Hesaplayıcı",
+  "meta.description": "Kiralama geliriniz, platform komisyonlarınız ve aylık giderleriniz sonrasında gerçek net işletme gelirinizi hesaplayın. Hızlı ve sade bir deneyimle.",
+
+  "app.name": "StayProfit",
+  "app.slogan": "Gerçek Kira Kârınızı Bilin.",
+  "app.skipToContent": "İçeriğe geç",
+
+  "nav.language": "Dil",
+  "lang.tr": "Türkçe",
+  "lang.en": "English",
+
+  "calc.title": "Kira Kârlılık Hesaplayıcı",
+  "calc.subtitle": "Kiralama varsayımlarınızı girin, aylık ve yıllık net işletme gelirinizi anında görün.",
+  "calc.reset": "Örnek Değerlere Dön",
+  "calc.resetHint": "Başlangıçtaki örnek değerleri geri yükler.",
+  "calc.sampleNotice": "Sayfa açıldığında gösterilen değerler ÖRNEK veridir. Kendi rakamlarınızı girerek hesaplayabilirsiniz.",
+  "calc.optionalHint": "Boş bırakılırsa 0 kabul edilir",
+
+  "currency.label": "Para birimi",
+  "currency.TRY": "TRY — Türk Lirası",
+  "currency.USD": "USD — ABD Doları",
+  "currency.EUR": "EUR — Euro",
+  "currency.GBP": "GBP — İngiliz Sterlini",
+
+  "section.basic": "Temel girdiler",
+  "section.expensesBasic": "Temel aylık giderler",
+  "section.advanced": "Gelişmiş giderler",
+  "section.advancedHint": "Opsiyonel. Mülkünüze özel ek aylık giderleri girin.",
+  "section.advancedErrorBadge": "Hata var",
+
+  "field.nightlyPrice.label": "Gecelik fiyat",
+  "field.nightlyPrice.hint": "Bir gece için ortalama brüt fiyat (seçili para biriminde).",
+  "field.nightlyPrice.placeholder": "ör. 2500",
+
+  "field.availableNights.label": "Aylık müsait gece sayısı",
+  "field.availableNights.hint": "1 ile 31 arasında tam sayı.",
+  "field.availableNights.placeholder": "ör. 30",
+
+  "field.occupancyRate.label": "Doluluk oranı",
+  "field.occupancyRate.hint": "Müsait gecelerin yüzde kaçının dolu olduğu (0 ile 100 arası).",
+  "field.occupancyRate.placeholder": "ör. 75",
+
+  "field.platformFeeRate.label": "Platform komisyon oranı",
+  "field.platformFeeRate.hint": "Brüt rezervasyon tutarı üzerinden kesilen yüzde (0 ile 100 arası).",
+  "field.platformFeeRate.placeholder": "ör. 15",
+
+  "field.cleaningCostPerBooking.label": "Rezervasyon başına temizlik ücreti",
+  "field.cleaningCostPerBooking.hint": "Her rezervasyon için ödenen temizlik tutarı (seçili para biriminde).",
+  "field.cleaningCostPerBooking.placeholder": "ör. 500",
+
+  "field.bookingsPerMonth.label": "Aylık rezervasyon sayısı",
+  "field.bookingsPerMonth.hint": "0 veya daha büyük tam sayı. Dolu gece sayısını aşamaz.",
+  "field.bookingsPerMonth.placeholder": "ör. 4",
+
+  "field.maintenance.label": "Bakım ve onarım",
+  "field.maintenance.hint": "Aylık ortalama tutar (seçili para biriminde).",
+  "field.maintenance.placeholder": "ör. 300",
+
+  "field.electricity.label": "Elektrik",
+  "field.electricity.hint": "Aylık ortalama tutar (seçili para biriminde).",
+  "field.electricity.placeholder": "ör. 400",
+
+  "field.water.label": "Su",
+  "field.water.hint": "Aylık ortalama tutar (seçili para biriminde).",
+  "field.water.placeholder": "ör. 150",
+
+  "field.internet.label": "İnternet",
+  "field.internet.hint": "Aylık internet aboneliği tutarı (seçili para biriminde).",
+  "field.internet.placeholder": "ör. 350",
+
+  "field.insurance.label": "Sigorta",
+  "field.insurance.hint": "Aylık sigorta primi. Yıllık primi 12'ye bölerek girebilirsiniz.",
+  "field.insurance.placeholder": "ör. 200",
+
+  "field.propertyManagement.label": "Yönetim ücreti",
+  "field.propertyManagement.hint": "Profesyonel yönetici için aylık ücret (seçili para biriminde).",
+  "field.propertyManagement.placeholder": "ör. 1000",
+
+  "field.otherExpenses.label": "Diğer giderler",
+  "field.otherExpenses.hint": "Aidat, abonelik ve diğer aylık giderlerin toplamı (seçili para biriminde).",
+  "field.otherExpenses.placeholder": "ör. 100",
+
+  "result.title": "Sonuç",
+  "result.grossRevenue": "Brüt gelir",
+  "result.platformFee": "Platform komisyonu",
+  "result.totalExpenses": "Toplam giderler",
+  "result.monthlyNet": "Aylık net işletme geliri",
+  "result.annualNet": "Yıllık net işletme geliri",
+  "result.profitMargin": "Net işletme geliri marjı",
+  "result.dash": "—",
+  "result.profit": "Kârda",
+  "result.loss": "Zararda",
+  "result.breakEven": "Başa baş",
+  "result.lossExplain": "Giderler geliri aşıyor",
+  "result.summaryAria": "Hesaplama özeti",
+
+  "note.taxes": "Vergiler dahil değildir.",
+  "note.annualAssumption": "Yıllık değerler, aylık değerlerin 12 katı alınarak hesaplanır.",
+  "note.noConversion": "Para birimi yalnızca gösterim amaçlıdır; kur çevrimi yapılmaz.",
+  "note.storage": "Yalnızca dil tercihiniz saklanır; mali veriler saklanmaz.",
+
+  "errors.REQUIRED": "Bu alan zorunludur.",
+  "errors.NOT_A_NUMBER": "Lütfen geçerli bir sayı girin.",
+  "errors.NOT_AN_INTEGER": "Bu alan tam sayı olmalıdır.",
+  "errors.OUT_OF_RANGE": "Değer izin verilen aralığın dışında.",
+  "errors.TOO_LARGE": "Değer çok büyük; en fazla {max} girilebilir.",
+  "errors.NEGATIVE_VALUE": "Negatif değer girilemez.",
+  "errors.INVALID_CURRENCY": "Geçersiz para birimi seçildi.",
+  "errors.BOOKINGS_EXCEED_BOOKED_NIGHTS": "Rezervasyon sayısı dolu gece sayısını ({max}) aşamaz.",
+  "errors.INVALID_INPUT": "Girdi geçersiz.",
+  "errors.RESULT_OUT_OF_RANGE": "Hesaplanan sonuç beklenen aralığın dışında.",
+  "errors.AMBIGUOUS_NUMBER": "Binlik ve ondalık ayracı belirsiz (ör. 1.234 veya 1,234). Lütfen sayıyı net bir biçimde yazın.",
+  "errors.summary": "Lütfen işaretli alanları düzeltin.",
+  "errors.loadFailed": "Seçilen dil dosyası yüklenemedi, yedek dil gösteriliyor.",
+  "errors.loadFailedHint": "Sunucuyla çalıştırıldığından emin olun: npm start",
+
+  "footer.disclaimer": "Sonuçlar yalnızca tahmini bir hesaplamadır; vergi, hukuki veya yatırım tavsiyesi değildir."
+}
