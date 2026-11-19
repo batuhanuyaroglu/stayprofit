@@ -33,6 +33,15 @@ export function formatNumber(value, lang) {
   return new Intl.NumberFormat(localeFor(lang), { maximumFractionDigits: 2 }).format(value);
 }
 
+/** Sabit ondalık basamaklı sayı (ör. tahmini rezervasyon sayısı, 1 ondalık); yalnızca gösterim. */
+export function formatFixed(value, lang, digits = 1) {
+  if (typeof value !== "number" || !Number.isFinite(value)) return null;
+  return new Intl.NumberFormat(localeFor(lang), {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(Math.abs(value) < 0.5 * 10 ** -digits ? 0 : value);
+}
+
 /** Aylık net için durum: "profit" | "loss" | "even" | null (geçersiz). Gösterim hassasiyetine göre. */
 export function profitStatus(value) {
   if (typeof value !== "number" || !Number.isFinite(value)) return null;

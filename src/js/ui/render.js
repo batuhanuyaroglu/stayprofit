@@ -12,7 +12,7 @@ const RESULT_KEYS = [
   "profitMargin",
 ];
 
-function badgeText(status) {
+export function badgeText(status) {
   switch (status) {
     case "profit":
       return t("result.profit");
@@ -23,7 +23,15 @@ function badgeText(status) {
   }
 }
 
-const BADGE_ICON = { profit: "▲", loss: "▼", even: "=" };
+export const BADGE_ICON = { profit: "▲", loss: "▼", even: "=" };
+
+/** Sticky alt çubuğun etiketi ve değeri (iki mod aynı çubuğu kullanır). */
+export function setSticky(labelText, valueText) {
+  const label = document.getElementById("sticky-label");
+  const value = document.getElementById("sticky-value");
+  if (label) label.textContent = labelText;
+  if (value) value.textContent = valueText;
+}
 
 /**
  * @param {{result:object|null, lang:string, currency:string, hasErrors:boolean, generalMessages:string[]}} ctx
@@ -53,6 +61,8 @@ export function renderResults(ctx) {
   document.querySelectorAll("[data-result]").forEach((el) => {
     el.textContent = values[el.dataset.result] ?? dash;
   });
+
+  setSticky(t("result.monthlyNet"), values.monthlyNetOperatingIncome ?? dash);
 
   const state = status || "none";
   document.querySelectorAll("[data-state-host]").forEach((el) => {

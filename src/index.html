@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/calculator.css">
+  <link rel="stylesheet" href="css/seasonal.css">
 </head>
 <body>
   <!--
@@ -92,8 +93,18 @@
   <main id="main" class="layout" data-app-content>
     <div class="layout__form">
       <p class="notice" id="sample-notice" data-i18n="calc.sampleNotice"></p>
+      <p class="notice" id="sample-notice-seasonal" data-i18n="calc.sampleNoticeSeasonal" hidden></p>
 
       <form id="calc-form" class="card" novalidate autocomplete="off">
+        <div class="mode-switch">
+          <span class="mode-switch__label" id="mode-label" data-i18n="mode.label"></span>
+          <div class="mode-switch__group" role="group" aria-labelledby="mode-label" aria-describedby="mode-hint">
+            <button type="button" class="mode-switch__btn" data-mode="simple" aria-pressed="true" data-i18n="mode.simple"></button>
+            <button type="button" class="mode-switch__btn" data-mode="seasonal" aria-pressed="false" data-i18n="mode.seasonal"></button>
+          </div>
+          <p class="mode-switch__hint" id="mode-hint" data-mode-only="seasonal" data-i18n="mode.seasonalHint" hidden></p>
+        </div>
+
         <div class="toolbar">
           <div class="toolbar__currency">
             <label class="field__label" for="currency" data-i18n="currency.label"></label>
@@ -103,10 +114,67 @@
           <span class="visually-hidden" id="reset-hint" data-i18n="calc.resetHint"></span>
         </div>
 
+        <fieldset class="fieldset seasonal" data-mode-only="seasonal" hidden>
+          <legend class="fieldset__legend" data-i18n="seasonal.title"></legend>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="year" data-i18n="seasonal.year.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="year" name="year" type="text" inputmode="decimal" aria-describedby="year-hint" data-i18n-attr="placeholder:seasonal.year.placeholder">
+              </div>
+              <p class="field__hint" id="year-hint" data-i18n="seasonal.year.hint"></p>
+              <p class="field__error" id="year-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="averageStayNights" data-i18n="seasonal.averageStay.label"></label>
+              <div class="field__control">
+                <input class="field__input" id="averageStayNights" name="averageStayNights" type="text" inputmode="decimal" aria-describedby="averageStayNights-hint" data-i18n-attr="placeholder:seasonal.averageStay.placeholder">
+              </div>
+              <p class="field__hint" id="averageStayNights-hint" data-i18n="seasonal.averageStay.hint"></p>
+              <p class="field__error" id="averageStayNights-error" hidden></p>
+            </div>
+          </div>
+
+          <div class="seasonal__apply" role="group" aria-labelledby="apply-title">
+            <p class="seasonal__apply-title" id="apply-title" data-i18n="seasonal.applyAll.title"></p>
+            <p class="field__hint" data-i18n="seasonal.applyAll.hint"></p>
+            <div class="seasonal__apply-row">
+              <div class="field">
+                <label class="field__label" for="apply-price" data-i18n="seasonal.applyAll.price"></label>
+                <div class="field__control">
+                  <input class="field__input" id="apply-price" type="text" inputmode="decimal">
+                  <span class="field__unit" data-unit="currency"></span>
+                </div>
+                <p class="field__error" id="apply-price-error" hidden></p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="apply-occ" data-i18n="seasonal.applyAll.occupancy"></label>
+                <div class="field__control">
+                  <input class="field__input" id="apply-occ" type="text" inputmode="decimal">
+                  <span class="field__unit">%</span>
+                </div>
+                <p class="field__error" id="apply-occ-error" hidden></p>
+              </div>
+              <button type="button" class="btn btn--secondary seasonal__apply-btn" id="apply-button" data-i18n="seasonal.applyAll.button"></button>
+            </div>
+            <p class="visually-hidden" id="apply-status" role="status"></p>
+          </div>
+
+          <div class="seasonal__months">
+            <div class="seasonal__head" aria-hidden="true">
+              <span class="seasonal__head-month" data-i18n="seasonal.col.month"></span>
+              <span data-i18n="seasonal.month.priceShort"></span>
+              <span data-i18n="seasonal.month.occupancyShort"></span>
+            </div>
+            <div id="month-rows"></div>
+          </div>
+        </fieldset>
+
         <fieldset class="fieldset">
           <legend class="fieldset__legend" data-i18n="section.basic"></legend>
           <div class="form-grid">
-            <div class="field">
+            <div class="field" data-mode-only="simple">
               <label class="field__label" for="nightlyPrice" data-i18n="field.nightlyPrice.label"></label>
               <div class="field__control">
                 <input class="field__input" id="nightlyPrice" name="nightlyPrice" type="text" inputmode="decimal" aria-describedby="nightlyPrice-hint" data-i18n-attr="placeholder:field.nightlyPrice.placeholder">
@@ -116,7 +184,7 @@
               <p class="field__error" id="nightlyPrice-error" hidden></p>
             </div>
 
-            <div class="field">
+            <div class="field" data-mode-only="simple">
               <label class="field__label" for="availableNights" data-i18n="field.availableNights.label"></label>
               <div class="field__control">
                 <input class="field__input" id="availableNights" name="availableNights" type="text" inputmode="decimal" aria-describedby="availableNights-hint" data-i18n-attr="placeholder:field.availableNights.placeholder">
@@ -125,7 +193,7 @@
               <p class="field__error" id="availableNights-error" hidden></p>
             </div>
 
-            <div class="field">
+            <div class="field" data-mode-only="simple">
               <label class="field__label" for="occupancyRate" data-i18n="field.occupancyRate.label"></label>
               <div class="field__control">
                 <input class="field__input" id="occupancyRate" name="occupancyRate" type="text" inputmode="decimal" aria-describedby="occupancyRate-hint" data-i18n-attr="placeholder:field.occupancyRate.placeholder">
@@ -155,7 +223,7 @@
               <p class="field__error" id="cleaningCostPerBooking-error" hidden></p>
             </div>
 
-            <div class="field">
+            <div class="field" data-mode-only="simple">
               <label class="field__label" for="bookingsPerMonth" data-i18n="field.bookingsPerMonth.label"></label>
               <div class="field__control">
                 <input class="field__input" id="bookingsPerMonth" name="bookingsPerMonth" type="text" inputmode="decimal" aria-describedby="bookingsPerMonth-hint" data-i18n-attr="placeholder:field.bookingsPerMonth.placeholder">
@@ -258,6 +326,7 @@
       <section class="card results" data-state-host data-state="none">
         <h2 class="results__title" id="results-title" data-i18n="result.title"></h2>
 
+        <div data-mode-only="simple">
         <div class="summary" role="group" data-i18n-attr="aria-label:result.summaryAria">
           <div aria-live="polite" aria-atomic="true">
             <p class="summary__label" data-i18n="result.monthlyNet"></p>
@@ -294,15 +363,85 @@
             <dd data-result="profitMargin">—</dd>
           </div>
         </dl>
+        </div>
+
+        <div data-mode-only="seasonal" hidden>
+        <div class="summary" role="group" data-i18n-attr="aria-label:result.summaryAria">
+          <div aria-live="polite" aria-atomic="true">
+            <p class="summary__label" data-i18n="result.annualNetSeasonal"></p>
+            <p class="summary__value" data-sresult="annualNet">—</p>
+            <p class="badge badge--status" id="result-badge-seasonal" hidden>
+              <span class="badge__icon" id="result-badge-seasonal-icon" aria-hidden="true"></span>
+              <span id="result-badge-seasonal-text"></span>
+            </p>
+            <p class="summary__explain" id="result-explain-seasonal" hidden></p>
+          </div>
+        </div>
+
+        <p class="results__status" id="result-status-seasonal" role="status"></p>
+
+        <dl class="metrics">
+          <div class="metrics__row">
+            <dt data-i18n="result.annualGross"></dt>
+            <dd data-sresult="annualGross">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt data-i18n="result.annualFee"></dt>
+            <dd data-sresult="annualFee">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt data-i18n="result.annualTotalExpenses"></dt>
+            <dd data-sresult="annualTotalExpenses">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt data-i18n="result.annualBookings"></dt>
+            <dd data-sresult="annualBookings">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt data-i18n="result.annualMargin"></dt>
+            <dd data-sresult="annualMargin">—</dd>
+          </div>
+        </dl>
+        </div>
 
         <ul class="notes">
           <li data-i18n="note.taxes"></li>
-          <li data-i18n="note.annualAssumption"></li>
+          <li data-mode-only="simple" data-i18n="note.annualAssumption"></li>
+          <li data-mode-only="seasonal" data-i18n="note.seasonalEstimate" hidden></li>
+          <li data-mode-only="seasonal" data-i18n="note.bookingsEstimate" hidden></li>
           <li data-i18n="note.noConversion"></li>
           <li data-i18n="note.storage"></li>
         </ul>
       </section>
     </aside>
+
+    <section class="layout__breakdown breakdown" data-mode-only="seasonal" hidden>
+      <details class="disclosure" id="breakdown-details">
+        <summary class="disclosure__summary" data-i18n="seasonal.table.title"></summary>
+        <div class="disclosure__body">
+          <div class="breakdown__scroll" role="region" tabindex="0" data-i18n-attr="aria-label:seasonal.table.title">
+            <table class="month-table" role="table">
+              <caption class="month-table__caption" data-i18n="seasonal.table.caption"></caption>
+              <thead role="rowgroup">
+                <tr role="row">
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.month"></th>
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.days"></th>
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.occupancy"></th>
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.gross"></th>
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.fee"></th>
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.cleaning"></th>
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.operating"></th>
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.net"></th>
+                  <th scope="col" role="columnheader" data-i18n="seasonal.col.bookings"></th>
+                </tr>
+              </thead>
+              <tbody id="breakdown-body" role="rowgroup"></tbody>
+              <tfoot id="breakdown-foot" role="rowgroup"></tfoot>
+            </table>
+          </div>
+        </div>
+      </details>
+    </section>
   </main>
 
   <footer class="site-footer" data-app-content>
@@ -311,8 +450,8 @@
 
   <!-- Sticky alt çubuk (mobil). Görsel kopya; ekran okuyucu için canlı bölge sonuç panelindedir. -->
   <div class="sticky-bar" data-app-content aria-hidden="true" data-state-host data-state="none">
-    <span class="sticky-bar__label" data-i18n="result.monthlyNet"></span>
-    <span class="sticky-bar__value" data-result="monthlyNetOperatingIncome">—</span>
+    <span class="sticky-bar__label" id="sticky-label"></span>
+    <span class="sticky-bar__value" id="sticky-value">—</span>
   </div>
 
   <script type="module" src="js/ui/main.js"></script>

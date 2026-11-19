@@ -20,7 +20,7 @@ HTML5, CSS3, Vanilla JavaScript, JSON localization. Framework veya bağımlılı
 - `localStorage` yalnızca dil (`stayprofit.lang`) ve tema (`stayprofit.theme`: light/dark) tercihi için kullanılır; mali veriler asla saklanmaz.
 - Renkler yalnızca `src/css/tokens.css` değişkenlerinden gelir (açık tema `:root`, koyu tema `:root[data-theme="dark"]`); diğer CSS dosyalarında ham renk yazılmaz. `<head>` içindeki küçük satır içi tema scripti (metinsiz) ilk boyamadaki titremeyi önler; `file://`/hata kutuları gibi bir istisnadır.
 - Sayı girişi UI'da ayrıştırılır (`parse-number.js`); motor metni dönüştürmez. Belirsiz ayraçlı girdi hata verir.
-- Dosya/klasör adları küçük harf; `calculateProfit.js` bilinçli bir istisnadır (camelCase). Yeni dosyalarda kebab-case. Mevcut stile uy.
+- Dosya/klasör adları küçük harf; `calculateProfit.js` ve `calculateSeasonalProfit.js` bilinçli istisnadır (camelCase). Yeni dosyalarda kebab-case. Mevcut stile uy.
 
 ## Dosya yapısı (hedef)
 ```
@@ -30,7 +30,7 @@ StayProfit/
 ├─ scripts/             # dev-server.js (yerel geliştirme sunucusu)
 ├─ src/
 │  ├─ index.html
-│  ├─ calculator/       # hesaplama motoru (UI'dan bağımsız): calculateProfit.js, validation.js
+│  ├─ calculator/       # hesaplama motoru (UI'dan bağımsız): calculateProfit.js, calculateSeasonalProfit.js, validation.js, seasonal-validation.js
 │  ├─ css/
 │  ├─ js/
 │  │  └─ ui/

@@ -13,14 +13,14 @@ export const EXPENSE_FIELDS = Object.freeze([
   "otherExpenses",
 ]);
 
-const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
+export const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 
-function err(field, code, message) {
+export function err(field, code, message) {
   return { field, code, message };
 }
 
 // Sayı kontrolü; geçerliyse null, değilse hata döner.
-function checkNumber(input, field) {
+export function checkNumber(input, field) {
   const v = input[field];
   if (v === undefined || v === null || v === "") {
     return err(field, "REQUIRED", `${field} is required.`);
@@ -31,7 +31,7 @@ function checkNumber(input, field) {
   return null;
 }
 
-function checkNonNegative(input, field, errors) {
+export function checkNonNegative(input, field, errors) {
   const e = checkNumber(input, field);
   if (e) return errors.push(e);
   if (input[field] < 0) {
@@ -39,7 +39,7 @@ function checkNonNegative(input, field, errors) {
   }
 }
 
-function checkRange(input, field, min, max, errors) {
+export function checkRange(input, field, min, max, errors) {
   const e = checkNumber(input, field);
   if (e) return errors.push(e);
   if (input[field] < min || input[field] > max) {

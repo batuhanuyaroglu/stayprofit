@@ -136,6 +136,10 @@
   }
 
   .layout__results {
+    align-self: stretch;
+  }
+
+  .layout__results > .results {
     position: sticky;
     top: calc(var(--header-height) + var(--space-4));
   }
@@ -151,7 +155,7 @@
 
 @media (min-width: 700px) and (max-width: 1023px) {
   /* Düşük yükseklikte sonuç paneli kendi içinde kayar; sayfa dışına taşmaz. */
-  .layout__results {
+  .layout__results > .results {
     max-height: calc(100vh - var(--header-height) - var(--space-5));
     overflow-y: auto;
   }
@@ -164,11 +168,6 @@
     gap: var(--space-5);
     padding-top: var(--space-5);
     padding-bottom: var(--space-6);
-  }
-
-  .layout__results {
-    position: sticky;
-    top: calc(var(--header-height) + var(--space-4));
   }
 
   .site-footer {

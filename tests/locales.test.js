@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { CURRENCIES } from "../src/calculator/validation.js";
 import { FIELD_NAMES } from "../src/js/ui/form.js";
+import { MONTHS, SEASONAL_FIELD_IDS } from "../src/js/ui/seasonal-form.js";
 
 const src = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "src");
 const load = (lang) => JSON.parse(readFileSync(path.join(src, "locales", `${lang}.json`), "utf8"));
@@ -57,6 +58,8 @@ const dynamicKeys = () => [
   ...ERROR_CODES.map((c) => `errors.${c}`),
   ...CURRENCIES.map((c) => `currency.${c}`),
   ...FIELD_NAMES.flatMap((f) => [`field.${f}.label`, `field.${f}.hint`, `field.${f}.placeholder`]),
+  // seasonal-view.js / render-seasonal.js: t(`month.${n}`)
+  ...MONTHS.map((n) => `month.${n}`),
 ];
 
 test("dinamik anahtarlar (alanlar, para birimleri, hata kodları) var", () => {
@@ -76,6 +79,35 @@ test("yükleme hatası anahtarları kullanılıyor", () => {
   const keys = usedKeys();
   assert.ok(keys.has("errors.loadFailed"));
   assert.ok(keys.has("errors.loadFailedHint"));
+});
+
+test("sezonluk: yeni anahtarlar tr/en'de var ve kullanılıyor", () => {
+  const used = usedKeys();
+  const prefixes = ["mode.", "seasonal.", "result.annual", "note.seasonal", "note.bookingsEstimate", "calc.sampleNoticeSeasonal"];
+  const keys = Object.keys(en).filter((k) => prefixes.some((p) => k.startsWith(p)));
+  assert.ok(keys.length >= 30);
+  for (const k of keys) {
+    assert.ok(k in tr, `tr eksik: ${k}`);
+    assert.ok(used.has(k), `kullanılmıyor: ${k}`);
+  }
+});
+
+test("index.html sezonluk sabit kimlikleri ve mod işaretlerini içerir", () => {
+  const html = readFileSync(path.join(src, "index.html"), "utf8");
+  const ids = [
+    "year", "year-hint", "year-error", "averageStayNights", "averageStayNights-hint", "averageStayNights-error",
+    "apply-price", "apply-price-error", "apply-occ", "apply-occ-error", "apply-button", "apply-status",
+    "month-rows", "breakdown-body", "breakdown-foot", "breakdown-details", "sample-notice-seasonal",
+    "result-status", "result-status-seasonal", "sticky-label", "sticky-value", "mode-hint",
+  ];
+  for (const id of ids) assert.ok(html.includes(`id="${id}"`), `id eksik: ${id}`);
+  assert.ok(SEASONAL_FIELD_IDS.includes("price-12") && SEASONAL_FIELD_IDS.includes("occ-1"));
+  for (const f of ["nightlyPrice", "availableNights", "occupancyRate", "bookingsPerMonth"]) {
+    assert.match(html, new RegExp(`data-mode-only="simple">\\s*<label class="field__label" for="${f}"`), f);
+  }
+  assert.match(html, /<section class="layout__breakdown[^"]*" data-mode-only="seasonal"/);
+  assert.match(html, /<li data-mode-only="simple" data-i18n="note\.annualAssumption">/);
+  assert.ok(html.includes('href="css/seasonal.css"'));
 });
 
 test("index.html her alan için input + hint + error kimliği içerir", () => {

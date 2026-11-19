@@ -68,6 +68,17 @@ npm run start:lan
 ```
 Terminal, ağdaki cihazlar için erişim adresini yazar (ör. `http://192.168.x.x:8000`); bu adresi iPhone Safari'de açın. Bu komut `--lan` bayrağıyla `0.0.0.0` üzerinde dinler. Aynı sonuç için `HOST=0.0.0.0 npm start` (PowerShell: `$env:HOST="0.0.0.0"; npm start`) da kullanılabilir. Güvenlik kuralları (yalnızca `src/`, yalnızca GET/HEAD) bu modda da geçerlidir, ancak aynı ağdaki herkes siteye erişebilir: yalnızca güvendiğiniz ağda kullanın. Windows Güvenlik Duvarı izin sorarsa yalnızca özel ağa izin verin. Test bitince sunucuyu Ctrl+C ile durdurun.
 
+## Sezonluk hesaplama (isteğe bağlı mod)
+Basit mod varsayılandır ve değişmemiştir. "Sezonluk" modda 12 ayın her biri için ayrı gecelik fiyat ve doluluk girilir; `calculateSeasonalProfit(input)` (`src/calculator/calculateSeasonalProfit.js`) kullanılır.
+
+- **Girdi:** `currency`, `year` (1900–2200 tam sayı; Şubat'ın 28 veya 29 gün olması için), `averageStayNights` (1–365, kesirli olabilir), `platformFeeRate`, `cleaningCostPerBooking`, 7 aylık gider kalemi (tüm aylarda aynı tutar) ve `months` (12 elemanlı dizi, her biri `{nightlyPrice, occupancyRate}`). Hata alanları `months.N.nightlyPrice` / `months.N.occupancyRate` biçimindedir (N = 1–12).
+- **Her ay:** `days` = ayın gerçek gün sayısı; `bookedNights = days × doluluk / 100`; `grossRevenue = bookedNights × fiyat`; `platformFee = grossRevenue × komisyon / 100` (yalnızca konaklama geliri); `bookings = bookedNights / averageStayNights`; `cleaningExpenses = temizlik maliyeti × bookings`; `operatingExpenses` = 7 gider kaleminin toplamı; `netOperatingIncome = grossRevenue − platformFee − cleaning − operating`.
+- **Rezervasyon sayısı kesirli ve yuvarlanmaz:** tahmini ortalamadır (basit moddaki tam sayı rezervasyon girişinden farklıdır). Arayüzde de bu belirtilir.
+- **Yıllık değerler 12 ayın gerçek toplamıdır**, "aylık × 12" değildir. `profitMargin = yıllık net / yıllık brüt × 100` (brüt 0 ise 0). Basit moddaki "yıllık = aylık × 12" notu sezonluk modda gösterilmez.
+- Vergi ve para birimi dönüşümü yoktur. Sonuçlar tahminidir.
+- **Arayüz:** form üstünde Basit/Sezonluk anahtarı; 12 aylık fiyat/doluluk satırları, "Tüm aylara uygula", yıl ve ortalama konaklama süresi; yıllık özet ve açılır aylık döküm tablosu (mobilde kart düzeni). Mobil alt çubuk sezonluk modda yıllık neti gösterir.
+- **Saklama:** sezonluk veriler (ve tüm mali veriler) saklanmaz; sayfa yenilenince örnek değerlere dönülür. Örnek değerler üç bağımsız grupta izlenir (ortak, basit-moda özgü, sezonluk): kullanıcının düzenlemediği grup para birimi değişince yeni para biriminin örneğine geçer, düzenlenen grup korunur.
+
 ## Arayüz (Faz 2)
 - Canlı hesaplama: her değişiklikte `calculateProfit` çağrılır; sonuçlar brüt gelir, platform komisyonu, toplam gider, aylık net, yıllık net ve kâr marjıdır.
 - Açılışta **örnek değerler** gelir (not ile belirtilir); "Örnek Değerlere Dön" düğmesi örneğe geri yükler.
