@@ -162,7 +162,13 @@
   color: var(--color-muted);
 }
 
+.sticky-bar__label {
+  min-width: 0;
+  line-height: 1.25;
+}
+
 .sticky-bar__value {
+  flex-shrink: 0;
   font-size: var(--font-size-lg);
   font-weight: 800;
   text-align: right;

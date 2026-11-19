@@ -57,10 +57,16 @@ npm start
 ```
 Ardından tarayıcıda http://localhost:8000 adresini açın. `npm start`, `scripts/dev-server.js` dosyasını çalıştırır:
 - Web kökü `src/` klasörüdür; `src` dışındaki dosyalara (`..` ve kodlanmış varyantları dahil) erişim reddedilir.
-- Yalnızca `127.0.0.1` (localhost) üzerinde dinler, dışarıdan erişilemez.
+- Varsayılan olarak yalnızca `127.0.0.1` (localhost) üzerinde dinler, dışarıdan erişilemez.
 - Varsayılan port 8000. Başka port için: `PORT=8080 npm start` (PowerShell: `$env:PORT=8080; npm start`).
 - HTML, CSS, JS ve JSON dosyalarını doğru `Content-Type` ile sunar. Yalnızca GET/HEAD kabul eder.
 - Sadece geliştirme içindir; üretim sunucusu değildir.
+
+**iPhone / yerel ağ testi:** telefon ve bilgisayar aynı Wi-Fi ağında olmalı.
+```
+npm run start:lan
+```
+Terminal, ağdaki cihazlar için erişim adresini yazar (ör. `http://192.168.x.x:8000`); bu adresi iPhone Safari'de açın. Bu komut `--lan` bayrağıyla `0.0.0.0` üzerinde dinler. Aynı sonuç için `HOST=0.0.0.0 npm start` (PowerShell: `$env:HOST="0.0.0.0"; npm start`) da kullanılabilir. Güvenlik kuralları (yalnızca `src/`, yalnızca GET/HEAD) bu modda da geçerlidir, ancak aynı ağdaki herkes siteye erişebilir: yalnızca güvendiğiniz ağda kullanın. Windows Güvenlik Duvarı izin sorarsa yalnızca özel ağa izin verin. Test bitince sunucuyu Ctrl+C ile durdurun.
 
 ## Arayüz (Faz 2)
 - Canlı hesaplama: her değişiklikte `calculateProfit` çağrılır; sonuçlar brüt gelir, platform komisyonu, toplam gider, aylık net, yıllık net ve kâr marjıdır.

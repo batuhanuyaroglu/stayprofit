@@ -52,5 +52,7 @@
   --tap-size: 44px;
   --header-height: 64px;
   --bar-height: 64px;
+  /* Alt çubuğun toplam kapladığı alan (iOS alt güvenli alan dahil) */
+  --bar-offset: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px));
   --content-max: 1120px;
 }

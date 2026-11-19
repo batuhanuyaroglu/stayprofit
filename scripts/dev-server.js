@@ -1,14 +1,18 @@
 // Yerel geliştirme sunucusu: yalnızca Node.js yerleşik modülleri, harici bağımlılık yok.
 // - Web kökü: src/ (src dışındaki hiçbir dosya sunulmaz).
-// - Yalnızca localhost (127.0.0.1) üzerinde dinler; dışarıdan erişilemez.
+// - Varsayılan: yalnızca localhost (127.0.0.1) üzerinde dinler; dışarıdan erişilemez.
+// - İsteğe bağlı yerel ağ erişimi (ör. iPhone testi): HOST=0.0.0.0 ya da `--lan` bayrağı
+//   (`npm run start:lan`). Bu durumda aynı Wi-Fi ağındaki herkes erişebilir; yalnızca güvendiğiniz ağda kullanın.
 // - Varsayılan port 8000; PORT ortam değişkeni ile değiştirilebilir.
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+import { networkInterfaces } from "node:os";
 import { dirname, extname, join, normalize, resolve, sep } from "node:path";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "src");
-const HOST = "127.0.0.1";
+const LOOPBACK_HOST = "127.0.0.1";
+const LAN_HOST = "0.0.0.0";
 const DEFAULT_PORT = 8000;
 
 const TYPES = {
@@ -56,6 +60,48 @@ async function pickFile(full) {
   return info.isFile() ? full : null;
 }
 
+/**
+ * Dinlenecek adres: --lan bayrağı → 0.0.0.0; yoksa HOST ortam değişkeni; yoksa 127.0.0.1.
+ * Boş/yalnızca boşluk içeren HOST yok sayılır.
+ */
+export function resolveHost(env = {}, argv = []) {
+  if (argv.includes("--lan")) return LAN_HOST;
+  const host = typeof env.HOST === "string" ? env.HOST.trim() : "";
+  return host || LOOPBACK_HOST;
+}
+
+/** Adres loopback dışında herkese (veya bir ağ arayüzüne) açık mı? */
+export function isNetworkExposed(host) {
+  return host !== LOOPBACK_HOST && host !== "localhost" && host !== "::1";
+}
+
+/** Yerel ağ IPv4 adresleri (iç olmayan arayüzler). */
+export function lanAddresses(interfaces = networkInterfaces()) {
+  const out = [];
+  for (const list of Object.values(interfaces)) {
+    for (const info of list ?? []) {
+      if (info.family === "IPv4" && !info.internal) out.push(info.address);
+    }
+  }
+  return out;
+}
+
+/** Başlangıçta terminalde gösterilecek satırlar. */
+export function startupMessages(host, port, addresses = lanAddresses()) {
+  if (!isNetworkExposed(host)) {
+    return [`StayProfit: http://localhost:${port} (kök: src/, yalnızca localhost)`];
+  }
+  const lines = [`StayProfit (yerel ağ modu, ${host}:${port}, kök: src/)`, `  Bu bilgisayarda: http://localhost:${port}`];
+  const reachable = host === LAN_HOST || host === "::" ? addresses : [host];
+  if (reachable.length) {
+    for (const a of reachable) lines.push(`  Ağdaki cihazlar (iPhone vb.): http://${a}:${port}`);
+  } else {
+    lines.push("  Yerel ağ adresi bulunamadı; Wi-Fi bağlantısını kontrol edin.");
+  }
+  lines.push("  UYARI: Aynı ağdaki herkes erişebilir. Yalnızca geliştirme için, güvendiğiniz ağda kullanın.");
+  return lines;
+}
+
 export function createDevServer(root = ROOT) {
   return createServer(async (req, res) => {
     const send = (status, body, headers = {}) => {
@@ -86,6 +132,7 @@ export function createDevServer(root = ROOT) {
 // Doğrudan çalıştırıldığında (npm start) sunucuyu başlat; import edilince başlatma.
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const port = Number(process.env.PORT) || DEFAULT_PORT;
+  const host = resolveHost(process.env, process.argv.slice(2));
   const server = createDevServer();
   server.on("error", (err) => {
     console.error(
@@ -95,7 +142,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     );
     process.exit(1);
   });
-  server.listen(port, HOST, () => {
-    console.log(`StayProfit: http://localhost:${port} (kök: src/, yalnızca localhost)`);
+  server.listen(port, host, () => {
+    for (const line of startupMessages(host, port)) console.log(line);
   });
 }

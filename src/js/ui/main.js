@@ -17,6 +17,7 @@ import {
   setFieldError,
 } from "./form.js";
 import { renderResults } from "./render.js";
+import { initKeyboardBar } from "./keyboard-bar.js";
 
 const form = document.getElementById("calc-form");
 const currencySelect = document.getElementById("currency");
@@ -164,4 +165,5 @@ async function init() {
   update();
 }
 
+initKeyboardBar();
 init().catch(showLoadFailure);

@@ -2,6 +2,7 @@
   "type": "module",
   "scripts": {
     "start": "node scripts/dev-server.js",
+    "start:lan": "node scripts/dev-server.js --lan",
     "test": "node --test"
   }
 }
