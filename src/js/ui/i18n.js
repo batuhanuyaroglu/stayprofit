@@ -2,6 +2,7 @@
 
 export const SUPPORTED = Object.freeze(["tr", "en"]);
 const FALLBACK = "en";
+export const TRANSLATIONS_APPLIED = "stayprofit:translations-applied";
 
 const dicts = {};
 let current = FALLBACK;
@@ -84,6 +85,8 @@ export function applyTranslations(root = document) {
   });
   document.title = t("meta.title");
   document.documentElement.lang = current;
+  // Dinamik etiket yazan modüller (örn. tema düğmesi) için bildirim.
+  document.dispatchEvent(new CustomEvent(TRANSLATIONS_APPLIED));
 }
 
 /**

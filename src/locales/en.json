@@ -5,10 +5,15 @@
   "app.name": "StayProfit",
   "app.slogan": "Know Your Real Rental Profit.",
   "app.skipToContent": "Skip to content",
+  "app.logoLabel": "StayProfit logo",
 
   "nav.language": "Language",
   "lang.tr": "Türkçe",
   "lang.en": "English",
+
+  "theme.label": "Theme",
+  "theme.toggle.toDark": "Switch to dark theme",
+  "theme.toggle.toLight": "Switch to light theme",
 
   "calc.title": "Rental Profit Calculator",
   "calc.subtitle": "Enter your rental assumptions and see your monthly and annual net operating income instantly.",
@@ -98,7 +103,7 @@
   "note.taxes": "Taxes are not included.",
   "note.annualAssumption": "Annual values are calculated as monthly values × 12.",
   "note.noConversion": "Currency is for display only; no exchange rate conversion is applied.",
-  "note.storage": "Only your language preference is stored; financial data is not stored.",
+  "note.storage": "Only your language and theme (light/dark) preferences are stored in your browser; financial data is not stored.",
 
   "errors.REQUIRED": "This field is required.",
   "errors.NOT_A_NUMBER": "Please enter a valid number.",

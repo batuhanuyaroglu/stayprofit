@@ -5,10 +5,15 @@
   "app.name": "StayProfit",
   "app.slogan": "Gerçek Kira Kârınızı Bilin.",
   "app.skipToContent": "İçeriğe geç",
+  "app.logoLabel": "StayProfit logosu",
 
   "nav.language": "Dil",
   "lang.tr": "Türkçe",
   "lang.en": "English",
+
+  "theme.label": "Tema",
+  "theme.toggle.toDark": "Koyu temaya geç",
+  "theme.toggle.toLight": "Açık temaya geç",
 
   "calc.title": "Kira Kârlılık Hesaplayıcı",
   "calc.subtitle": "Kiralama varsayımlarınızı girin, aylık ve yıllık net işletme gelirinizi anında görün.",
@@ -98,7 +103,7 @@
   "note.taxes": "Vergiler dahil değildir.",
   "note.annualAssumption": "Yıllık değerler, aylık değerlerin 12 katı alınarak hesaplanır.",
   "note.noConversion": "Para birimi yalnızca gösterim amaçlıdır; kur çevrimi yapılmaz.",
-  "note.storage": "Yalnızca dil tercihiniz saklanır; mali veriler saklanmaz.",
+  "note.storage": "Yalnızca dil ve tema (açık/koyu) tercihiniz tarayıcıda saklanır; mali veriler saklanmaz.",
 
   "errors.REQUIRED": "Bu alan zorunludur.",
   "errors.NOT_A_NUMBER": "Lütfen geçerli bir sayı girin.",

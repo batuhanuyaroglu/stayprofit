@@ -72,7 +72,7 @@ code {
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-sm);
   background: var(--color-brand-strong);
-  color: #fff;
+  color: var(--color-on-brand);
   font-weight: 600;
 }
 

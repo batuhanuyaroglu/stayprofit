@@ -17,7 +17,8 @@ HTML5, CSS3, Vanilla JavaScript, JSON localization. Framework veya bağımlılı
 - CSS: değişkenler (custom properties), mobile-first, BEM benzeri sınıf adları.
 - Kullanıcıya görünen tüm metinler JSON çeviri dosyalarından gelir; koda gömülmez. İstisnalar (yalnızca `src/index.html`, sabit TR+EN): `file://` uyarısı ve "iki dil dosyası da yüklenemedi" hata kutusu.
 - Uygulama ES modülleri ve `fetch` kullandığından `npm start` (`scripts/dev-server.js`: Node.js, bağımlılıksız, `src` kökü, yalnızca localhost:8000) ile çalıştırılır; `file://` desteklenmez.
-- `localStorage` yalnızca dil tercihi için kullanılır; mali veriler asla saklanmaz.
+- `localStorage` yalnızca dil (`stayprofit.lang`) ve tema (`stayprofit.theme`: light/dark) tercihi için kullanılır; mali veriler asla saklanmaz.
+- Renkler yalnızca `src/css/tokens.css` değişkenlerinden gelir (açık tema `:root`, koyu tema `:root[data-theme="dark"]`); diğer CSS dosyalarında ham renk yazılmaz. `<head>` içindeki küçük satır içi tema scripti (metinsiz) ilk boyamadaki titremeyi önler; `file://`/hata kutuları gibi bir istisnadır.
 - Sayı girişi UI'da ayrıştırılır (`parse-number.js`); motor metni dönüştürmez. Belirsiz ayraçlı girdi hata verir.
 - Dosya/klasör adları küçük harf; `calculateProfit.js` bilinçli bir istisnadır (camelCase). Yeni dosyalarda kebab-case. Mevcut stile uy.
 

@@ -73,10 +73,11 @@ Terminal, ağdaki cihazlar için erişim adresini yazar (ör. `http://192.168.x.
 - Açılışta **örnek değerler** gelir (not ile belirtilir); "Örnek Değerlere Dön" düğmesi örneğe geri yükler.
 - Temel giderler: bakım, elektrik, su, internet, sigorta. Gelişmiş (açılır): mülk yönetimi, diğer giderler.
 - TRY/USD/EUR/GBP yalnızca gösterim içindir; kur dönüşümü yoktur.
-- TR/EN dil anahtarı; `src/locales/tr.json` ve `en.json`. Yalnızca dil tercihi `localStorage`'da saklanır; mali veriler saklanmaz.
+- TR/EN dil anahtarı; `src/locales/tr.json` ve `en.json`. Yalnızca dil ve tema tercihi `localStorage`'da saklanır; mali veriler saklanmaz.
 - Sayı girişi esnek: `12.5` ve `12,5` aynıdır, `1.234,56` ve `1,234.56` desteklenir. `1.234` gibi belirsiz girdiler yanlış değer üretmek yerine hata verir.
 - **Örnek veri setleri:** TRY, USD, EUR ve GBP için ayrı örnek değerler vardır (`src/js/ui/samples.js`). Dil değişimi para birimini değiştirmez. Kullanıcı hiçbir alanı düzenlemediyse para birimi değişince ilgili örnek set yüklenir; en az bir alan düzenlendiyse girdiler olduğu gibi korunur. "Örnek Değerlere Dön" seçili para biriminin örneğine döner.
 - **Arayüz üst sınırları** (`src/js/ui/limits.js`; motor sınırları değildir, aşırı büyük girdileri engeller): gecelik fiyat ≤ 1.000.000; rezervasyon başına temizlik ≤ 100.000; her aylık gider kalemi ≤ 10.000.000. Aşılırsa alan altında hata gösterilir ve motor çağrılmaz. Oranlar (0–100), müsait gece (1–31) ve rezervasyon sayısı motor tarafından sınırlanır.
 - **Çeviri yükleme hataları:** seçilen dil dosyası yüklenemezse diğer dile düşülür ve uyarı gösterilir. İki dil de yüklenemezse form gizlenir ve sabit TR+EN hata kutusu görünür.
 - **SEO:** sayfa başlığı, meta açıklaması ve `<html lang>` dil değişiminde güncellenir. `canonical` ve `hreflang` etiketleri gerçek domain henüz belirlenmediği için eklenmedi; domain belirlenince `src/index.html` `<head>` içine eklenecek (yer `index.html` içinde yorumla işaretlidir).
-- Kapsam dışı: koyu tema, PDF, paylaşım, kur dönüşümü, backend, üyelik, ödeme.
+- **Logo ve tema:** `src/favicon.svg` ve başlıktaki SVG simge (ev silüeti + yükselen kâr çizgisi). Açık/koyu tema: başlıktaki güneş/ay düğmesi. Kayıtlı tercih varsa o, yoksa cihazın `prefers-color-scheme` ayarı kullanılır; manuel seçim cihaz ayarından önceliklidir. Dil ve tema tercihleri birbirinden bağımsızdır, tema değişimi girdileri ve sonuçları etkilemez. Tüm renkler `src/css/tokens.css` değişkenlerindedir.
+- Kapsam dışı: PDF, paylaşım, kur dönüşümü, backend, üyelik, ödeme.

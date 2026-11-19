@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Bağımsız favicon: ev silüeti + yükselen kâr oku. Sekme temasına göre renk değiştirir. -->
+  <style>
+    .house { stroke: #0f766e; }
+    .trend { stroke: #115e59; }
+    @media (prefers-color-scheme: dark) {
+      .house { stroke: #2dd4bf; }
+      .trend { stroke: #5eead4; }
+    }
+  </style>
+  <path class="house" d="M4 15 16 4.5 28 15M7 13.5V27h18V13.5" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="trend" d="M11 22.5 15 18l3 2.5 5-6M19.5 14.5H23V18" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,5 +1,10 @@
+/* Açık tema (varsayılan). Koyu tema aşağıda AYNI --color-* adlarıyla yeniden tanımlanır
+   (tests/theme.test.js eksik değişkeni yakalar). Şekil/boşluk/tipografi token'ları paylaşılır. */
 :root {
+  color-scheme: light;
+
   /* Marka */
+  --color-on-brand: #ffffff; /* marka/strong zemin üstündeki metin */
   --color-brand: #0f766e;
   --color-brand-strong: #115e59;
   --color-brand-soft: #f0fdfa;
@@ -26,6 +31,18 @@
 
   --color-focus: #0f766e;
 
+  /* Yüzey özel */
+  --color-header-bg: rgba(255, 255, 255, 0.96);
+  --color-placeholder: #64748b;
+  --color-hero-from: #0f766e;
+  --color-hero-to: #115e59;
+  --color-on-hero: #ffffff;
+
+  /* Gölge (temaya göre değişir) */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-bar: 0 -6px 18px rgba(15, 23, 42, 0.08);
+
   /* Tipografi */
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-size-base: 1rem;
@@ -46,8 +63,6 @@
   --radius-sm: 12px;
   --radius-md: 16px;
   --radius-lg: 20px;
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
 
   --tap-size: 44px;
   --header-height: 64px;
@@ -55,4 +70,45 @@
   /* Alt çubuğun toplam kapladığı alan (iOS alt güvenli alan dahil) */
   --bar-offset: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px));
   --content-max: 1120px;
+}
+
+/* Koyu tema. Kontrast (yaklaşık): metin/zemin >=12:1, muted/zemin >=7:1, kâr/zarar/uyarı metni
+   soft zeminlerinde >=6:1, kenarlık-strong/yüzey >=4:1 (UI >=3:1). */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-on-brand: #04201e;
+  --color-brand: #2dd4bf;
+  --color-brand-strong: #5eead4;
+  --color-brand-soft: #0f2a29;
+  --color-brand-border: #1f5c58;
+
+  --color-bg: #0b1215;
+  --color-surface: #121c21;
+  --color-text: #e6edf0;
+  --color-muted: #a3b3bb;
+  --color-border: #263840;
+  --color-border-strong: #6b8590;
+
+  --color-profit: #34d399;
+  --color-profit-soft: #0f2a22;
+  --color-loss: #f87171;
+  --color-loss-soft: #2b1618;
+  --color-even: #a3b3bb;
+  --color-even-soft: #1b272d;
+  --color-warn-soft: #2a2110;
+  --color-warn-border: #d97706;
+  --color-warn-text: #fcd34d;
+
+  --color-focus: #5eead4;
+
+  --color-header-bg: rgba(18, 28, 33, 0.94);
+  --color-placeholder: #8da0a9;
+  --color-hero-from: #134e4a;
+  --color-hero-to: #0b2f2d;
+  --color-on-hero: #f0fdfa;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-bar: 0 -6px 18px rgba(0, 0, 0, 0.5);
 }
