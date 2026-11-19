@@ -1,0 +1,24 @@
+# Bağımlılıklar ve çıktılar
+node_modules/
+dist/
+build/
+coverage/
+
+# Ortam ve gizli dosyalar
+.env
+.env.*
+*.pem
+
+# Loglar
+*.log
+npm-debug.log*
+
+# İşletim sistemi / editör
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Claude Code yerel ayarları
+.claude/settings.local.json
